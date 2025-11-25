@@ -1,0 +1,92 @@
+[
+  {
+    "uniqueIdentifier": "984e02ca-2146-4f68-89f4-657b9ec90146",
+    "payload": {
+      "name": "LimoDemoEventLH",
+      "description": "Container Description",
+      "type": "rthSubscriptions"
+    },
+    "type": "container-v1"
+  },
+  {
+    "uniqueIdentifier": "78dcd247-97f5-4fea-a71f-02bac5d72515",
+    "payload": {
+      "name": "LimoDemoEvent2 event",
+      "connection": {
+        "scope": "Artifact",
+        "tenantId": "86289156-afdb-4440-9b1a-3d8764de69e1",
+        "workspaceId": "fb48eb04-b6b1-49c9-9b9c-f57dfffcb695",
+        "artifactId": "cdcf88cd-c1e7-4ec0-929e-c79658867c0c",
+        "eventGroupType": "Microsoft.Fabric.OneLakeEvents"
+      },
+      "filterSettings": {
+        "eventTypes": [
+          {
+            "name": "Microsoft.Fabric.OneLake.FileCreated"
+          }
+        ],
+        "filters": [
+          {
+            "values": [
+              "/Files/fhvhv"
+            ],
+            "operatorType": "StringBeginsWith",
+            "key": "subject"
+          }
+        ]
+      },
+      "parentContainer": {
+        "targetUniqueIdentifier": "984e02ca-2146-4f68-89f4-657b9ec90146"
+      }
+    },
+    "type": "realTimeHubSource-v1"
+  },
+  {
+    "uniqueIdentifier": "944dcc84-2992-4fff-9c6a-babf9752f076",
+    "payload": {
+      "name": "LimoDemoEvent2 event",
+      "parentContainer": {
+        "targetUniqueIdentifier": "984e02ca-2146-4f68-89f4-657b9ec90146"
+      },
+      "definition": {
+        "type": "Event",
+        "instance": "{\"steps\":[{\"id\":\"b761db70-6333-4a13-b273-995fff1fb66e\",\"name\":\"SourceEventStep\",\"rows\":[{\"arguments\":[{\"name\":\"entityId\",\"type\":\"string\",\"value\":\"78dcd247-97f5-4fea-a71f-02bac5d72515\"}],\"kind\":\"SourceReference\",\"name\":\"SourceSelector\"}]}],\"templateId\":\"SourceEvent\",\"templateVersion\":\"1.2.3\"}"
+      }
+    },
+    "type": "timeSeriesView-v1"
+  },
+  {
+    "uniqueIdentifier": "4238f504-a835-4a66-a3e3-6c918a2ad24b",
+    "payload": {
+      "name": "OneLake Events",
+      "parentContainer": {
+        "targetUniqueIdentifier": "984e02ca-2146-4f68-89f4-657b9ec90146"
+      },
+      "definition": {
+        "type": "Rule",
+        "instance": "{\"steps\":[{\"id\":\"6b38347a-8deb-4c54-9660-ea2f2ca2aa9b\",\"name\":\"FieldsDefaultsStep\",\"rows\":[{\"arguments\":[{\"arguments\":[{\"name\":\"entityId\",\"type\":\"string\",\"value\":\"944dcc84-2992-4fff-9c6a-babf9752f076\"}],\"kind\":\"EventReference\",\"name\":\"event\",\"type\":\"complex\"}],\"kind\":\"Event\",\"name\":\"EventSelector\"}]},{\"id\":\"e31d6cee-29d9-42c7-8cb4-124a24e91b89\",\"name\":\"EventDetectStep\",\"rows\":[{\"arguments\":[{\"name\":\"fieldName\",\"type\":\"string\",\"value\":\"api\"}],\"kind\":\"EventField\",\"name\":\"EventFieldSelector\"},{\"arguments\":[{\"name\":\"op\",\"type\":\"string\",\"value\":\"IsEqualTo\"},{\"name\":\"value\",\"type\":\"string\",\"value\":\"FlushWithClose\"}],\"kind\":\"TextValueCondition\",\"name\":\"TextValueCondition\"}]},{\"id\":\"77dba6fd-99aa-4e92-9459-7637ad31909f\",\"name\":\"ActStep\",\"rows\":[{\"kind\":\"FabricItemInvocation\",\"name\":\"FabricItemBinding\",\"arguments\":[{\"__typename\":\"templateInstanceV2StringArg\",\"name\":\"fabricJobConnectionDocumentId\",\"type\":\"string\",\"value\":\"11efce01-67a5-4b59-bb0d-322c6e6b7843\"},{\"name\":\"parameters\",\"type\":\"array\",\"values\":[{\"arguments\":[{\"name\":\"parameterName\",\"type\":\"string\",\"value\":\"subject\"},{\"name\":\"parameterValue\",\"type\":\"complexArray\",\"values\":[{\"name\":\"string\",\"type\":\"string\",\"value\":\"​\"},{\"arguments\":[{\"name\":\"fieldName\",\"type\":\"string\",\"value\":\"___subject\"}],\"kind\":\"EventFieldReference\",\"type\":\"complexReference\"},{\"name\":\"string\",\"type\":\"string\",\"value\":\" \"}]},{\"name\":\"parameterType\",\"type\":\"string\",\"value\":\"String\"}],\"kind\":\"FabricItemParameter\",\"type\":\"complex\"}]},{\"name\":\"additionalInformation\",\"type\":\"array\",\"values\":[]},{\"name\":\"workspaceId\",\"type\":\"string\",\"value\":\"fb48eb04-b6b1-49c9-9b9c-f57dfffcb695\"},{\"name\":\"itemId\",\"type\":\"string\",\"value\":\"2a795f3f-983f-4ea9-b2a6-4a9478a88153\"},{\"name\":\"itemType\",\"type\":\"string\",\"value\":\"SynapseNotebook\"},{\"name\":\"jobType\",\"type\":\"string\",\"value\":\"RunNotebook\"}]}]}],\"templateId\":\"EventTrigger\",\"templateVersion\":\"1.2.3\"}",
+        "settings": {
+          "shouldRun": true,
+          "shouldApplyRuleOnUpdate": true
+        }
+      }
+    },
+    "type": "timeSeriesView-v1"
+  },
+  {
+    "uniqueIdentifier": "11efce01-67a5-4b59-bb0d-322c6e6b7843",
+    "payload": {
+      "name": "Fabric item action",
+      "fabricItem": {
+        "itemId": "78a88153-4a94-b2a6-4ea9-983f2a795f3f",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemType": "SynapseNotebook"
+      },
+      "jobType": "RunNotebook",
+      "parentContainer": {
+        "targetUniqueIdentifier": "984e02ca-2146-4f68-89f4-657b9ec90146"
+      }
+    },
+    "type": "fabricItemAction-v1"
+  }
+]

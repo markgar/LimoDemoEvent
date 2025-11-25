@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "LimoDemoEventLH"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "58867c0c-c796-929e-4ec0-c1e7cdcf88cd"
+  }
+}

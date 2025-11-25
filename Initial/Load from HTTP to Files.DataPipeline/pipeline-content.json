@@ -1,0 +1,120 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "ForEach",
+        "typeProperties": {
+          "isSequential": false,
+          "batchCount": 3,
+          "items": {
+            "value": "@createArray('fhvhv_tripdata_2025-09.parquet', 'fhvhv_tripdata_2025-08.parquet', 'fhvhv_tripdata_2025-07.parquet', 'fhvhv_tripdata_2025-06.parquet', 'fhvhv_tripdata_2025-05.parquet', 'fhvhv_tripdata_2025-04.parquet', 'fhvhv_tripdata_2025-03.parquet', 'fhvhv_tripdata_2025-02.parquet', 'fhvhv_tripdata_2025-01.parquet')",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "type": "Copy",
+              "typeProperties": {
+                "source": {
+                  "type": "BinarySource",
+                  "formatSettings": {
+                    "type": "BinaryReadSettings"
+                  },
+                  "storeSettings": {
+                    "type": "HttpReadSettings",
+                    "requestMethod": "GET"
+                  },
+                  "datasetSettings": {
+                    "type": "Binary",
+                    "typeProperties": {
+                      "location": {
+                        "type": "HttpServerLocation",
+                        "relativeUrl": {
+                          "value": "@item()",
+                          "type": "Expression"
+                        }
+                      }
+                    },
+                    "externalReferences": {
+                      "connection": "7e73e9e2-03c7-43fa-ae9c-1ce92c0d82c3"
+                    },
+                    "annotations": []
+                  }
+                },
+                "sink": {
+                  "type": "BinarySink",
+                  "storeSettings": {
+                    "type": "LakehouseWriteSettings"
+                  },
+                  "datasetSettings": {
+                    "type": "Binary",
+                    "typeProperties": {
+                      "location": {
+                        "type": "LakehouseLocation",
+                        "folderPath": "fhvhv",
+                        "fileName": {
+                          "value": "@item()",
+                          "type": "Expression"
+                        }
+                      }
+                    },
+                    "connectionSettings": {
+                      "name": "LimoDemoEventLH2",
+                      "properties": {
+                        "type": "Lakehouse",
+                        "typeProperties": {
+                          "artifactId": "58867c0c-c796-929e-4ec0-c1e7cdcf88cd",
+                          "workspaceId": "00000000-0000-0000-0000-000000000000",
+                          "rootFolder": "Files"
+                        },
+                        "externalReferences": {
+                          "connection": "4e24a7bf-342e-4fd4-8f8a-55a72ddb634d"
+                        },
+                        "annotations": []
+                      }
+                    },
+                    "annotations": []
+                  }
+                },
+                "enableStaging": false
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Copy For-Hire HV",
+              "dependsOn": []
+            }
+          ]
+        },
+        "name": "ForEach For-Hire HV TO LH",
+        "dependsOn": [
+          {
+            "activity": "Empty Trip Table",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "978b1b66-b2fb-8320-4c2a-19a90ae3acc3",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Empty Trip Table",
+        "dependsOn": []
+      }
+    ]
+  }
+}
